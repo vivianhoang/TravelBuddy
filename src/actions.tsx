@@ -1,13 +1,13 @@
 export enum ActionType {
-  UpdateBit = 'UpdateBit',
+  CreateOffer = 'CreateOffer',
 }
 
-export interface UpdateBit {
-  type: ActionType.UpdateBit,
+export interface CreateOffer {
+  type: ActionType.CreateOffer,
+  name: string,
 }
 
 export type Action =
-  | UpdateBit;
+  | CreateOffer;
 
   export type Dispatcher = (action: Action) => void;
-  

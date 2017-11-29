@@ -11,10 +11,7 @@ const defaultAppState = (): models.App => {
   return state;
 };
 
-const app = (
-  state: models.App = defaultAppState(),
-  action: actions.Action
-): models.App => {
+const app = (state: models.App = defaultAppState(), action: actions.Action): models.App => {
   if (!action) {
     return state;
   }
@@ -22,9 +19,9 @@ const app = (
   var newState = _.cloneDeep(state);
 
   switch (action.type) {
-    case ActionType.UpdateBit:
-      newState.bit = !newState.bit;
-      break;
+    // case ActionType.UpdateBit:
+    //   newState.bit = !newState.bit;
+    //   break;
   }
   return newState;
 }
