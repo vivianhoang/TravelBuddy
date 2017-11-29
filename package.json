@@ -7,14 +7,18 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"firebase": "^4.6.2",
 		"react": "16.0.0",
 		"react-native": "0.50.4"
 	},
 	"devDependencies": {
+		"@types/react": "^16.0.25",
+		"@types/react-native": "^0.50.7",
 		"babel-jest": "21.2.0",
 		"babel-preset-react-native": "4.0.0",
 		"jest": "21.2.1",
-		"react-test-renderer": "16.0.0"
+		"react-test-renderer": "16.0.0",
+		"typescript": "^2.6.2"
 	},
 	"jest": {
 		"preset": "react-native"
