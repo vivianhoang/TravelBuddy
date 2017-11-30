@@ -34,10 +34,15 @@ export function* signIn(): any {
         continue;
       } 
       
-      yield put({
-        type: ActionType.UpdateUsername,
-        name,
-      });
+      // Start match status service
+      const { matchStatusService } = sharedAppService;
+      matchStatusService.tearDown();
+      matchStatusService.username = name;
+      matchStatusService.setUp();
+      // yield put({
+      //   type: ActionType.UpdateUsername,
+      //   name,
+      // });
       
     } catch (err) {
       console.log('error');
