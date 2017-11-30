@@ -1,6 +1,6 @@
 import {
   all,
-  // call,
+  call,
   fork,
   // select,
 } from 'redux-saga/effects';
@@ -20,9 +20,27 @@ export function* createOffer(): any {
   }
 }
 
+export function* signIn(): any {
+  while (true) {
+    const { name }: actions.SignIn = yield take(ActionType.SignIn);
+    try {
+      const response = yield call(() => {
+        return api.signIn({ name });
+      });
+      
+      if (!response || !response.ok) {
+        console.log("Error response.")
+      }
+    } catch (err) {
+      console.log('error');
+    }
+  }
+}
+
 export function* rootSaga() {
   yield all([
     fork(initialize),
     fork(createOffer),
+    fork(signIn),
   ]);
 }

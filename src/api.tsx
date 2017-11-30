@@ -9,8 +9,9 @@ export function apiCall(params: {endPoint: string, request: any}) {
     json: true,
     body,
   };
+  const endPointUrl = `https://travel-buddy-project.herokuapp.com/${endPoint}`;
   return new Promise((resolve, reject) => {
-    fetch(endPoint, options)
+    fetch(endPointUrl, options)
       .then(response => {
         resolve(response.json());
       })
@@ -25,5 +26,13 @@ export function createOffer(params: {name: string}): Promise<{}> {
   const request = {
     name,
   };
-  return apiCall({endPoint: '/createOffer', request}) as Promise<{}>;
+  return apiCall({endPoint: 'createOffer', request}) as Promise<{}>;
+}
+
+export function signIn(params: {name: string}): Promise<{}> {
+  const { name } = params;
+  const request = {
+    name,
+  };
+  return apiCall({endPoint: 'signIn', request}) as Promise<{}>;
 }
