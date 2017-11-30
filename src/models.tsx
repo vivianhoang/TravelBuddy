@@ -6,7 +6,7 @@ export interface App {
 
 export interface MatchStatus {
   username: string;
-  status: 'matched' | 'no-match';
+  isMatched: boolean;
 }
 
 export interface ReduxState {
