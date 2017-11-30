@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as models from './models';
 import { Dispatcher, ActionType } from './actions';
 import SignIn from './sign-in';
+import Welcome from './welcome';
 
 interface OwnProps {
 
@@ -36,13 +37,7 @@ class Root extends React.Component<Props, {}> {
     }
 
     return (
-      <View 
-        style={{
-          height: 50,
-          width: 50,
-          backgroundColor: 'purple'
-        }}
-      />
+      <Welcome />
     )
   }
 
