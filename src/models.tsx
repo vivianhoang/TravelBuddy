@@ -1,5 +1,5 @@
 export interface App {
-  bit: boolean;
+  username: string;
 }
 
 export interface ReduxState {

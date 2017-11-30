@@ -6,7 +6,7 @@ const { ActionType } = actions;
 
 const defaultAppState = (): models.App => {
   const state: models.App = {
-    bit: false,
+    username: "",
   };
   return state;
 };
@@ -19,9 +19,15 @@ const app = (state: models.App = defaultAppState(), action: actions.Action): mod
   var newState = _.cloneDeep(state);
 
   switch (action.type) {
-    // case ActionType.UpdateBit:
-    //   newState.bit = !newState.bit;
+    // case ActionType.CreateOffer:
+    //   newState.isMatchOpen = !newState.isMatchOpen;
     //   break;
+    case ActionType.UpdateUsername:
+      {
+        const { name } = action;
+        newState.username = name;
+      }
+      break;
   }
   return newState;
 }

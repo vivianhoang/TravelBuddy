@@ -5,7 +5,7 @@ import {
   // select,
 } from 'redux-saga/effects';
 import { put, take } from './saga-utils';
-import { sharedAppService } from './index-root';
+import { sharedAppService } from './app';
 import * as api from './api';
 import * as actions from './actions';
 const { ActionType } = actions;
@@ -27,10 +27,18 @@ export function* signIn(): any {
       const response = yield call(() => {
         return api.signIn({ name });
       });
+      console.log("RESPONSE", response);
       
       if (!response || !response.ok) {
-        console.log("Error response.")
-      }
+        console.log("Error response.");
+        continue;
+      } 
+      
+      yield put({
+        type: ActionType.UpdateUsername,
+        name,
+      });
+      
     } catch (err) {
       console.log('error');
     }

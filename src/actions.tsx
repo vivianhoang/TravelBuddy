@@ -1,6 +1,7 @@
 export enum ActionType {
   CreateOffer = 'CreateOffer',
   SignIn = 'SignIn',
+  UpdateUsername = 'UpdateUsername'
 }
 
 export interface CreateOffer {
@@ -13,8 +14,14 @@ export interface SignIn {
   name: string,
 }
 
+export interface UpdateUsername {
+  type: ActionType.UpdateUsername,
+  name: string,
+}
+
 export type Action =
   | CreateOffer
-  | SignIn;
+  | SignIn
+  | UpdateUsername;
 
   export type Dispatcher = (action: Action) => void;
