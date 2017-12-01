@@ -1,18 +1,18 @@
 import * as Firebase from 'firebase';
 import * as models from '../models';
 
-export interface MatchStatusServiceDelegate {
-  updateMatchStatus: (params: {matchStatus: models.MatchStatus}) => void,
+export interface UserServiceDelegate {
+  updateUser: (params: {user: models.User}) => void,
   firebaseApp: Firebase.app.App,
 }
 
-export class MatchStatusService {
+export class UserService {
 
-  delegate?: MatchStatusServiceDelegate;
+  delegate?: UserServiceDelegate;
   username?: string;
   unsubscribeFromUser?: (() => void);
 
-  configure(params: {delegate: MatchStatusServiceDelegate}) {
+  configure(params: {delegate: UserServiceDelegate}) {
     const { delegate } = params;
     if (!delegate) {
       throw new Error('User service delegate must be defined!');
@@ -35,15 +35,15 @@ export class MatchStatusService {
     const username = this.username;
     const db = delegate.firebaseApp.database();
     const eventTrigger = (snapshot: Firebase.database.DataSnapshot) => {
-      const matchStatus: models.MatchStatus = snapshot.val();
+      const user: models.User = snapshot.val();
       // Do something with user
-      delegate.updateMatchStatus({matchStatus});
+      delegate.updateUser({user});
     };
     if (!this.unsubscribeFromUser) {
-      const fbMatchStatusPath = `matchStatus/${username}`;
-      db.ref(fbMatchStatusPath).on('value', eventTrigger);
+      const fbUserPath = `users/${username}`;
+      db.ref(fbUserPath).on('value', eventTrigger);
       this.unsubscribeFromUser = () => {
-        db.ref(fbMatchStatusPath).off('value', eventTrigger);
+        db.ref(fbUserPath).off('value', eventTrigger);
       };
     }
   }

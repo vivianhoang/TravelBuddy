@@ -19,7 +19,7 @@ export interface SignIn {
 
 export interface UpdateUsername {
   type: ActionType.UpdateUsername,
-  name: string,
+  username: string,
 }
 
 export type Action =

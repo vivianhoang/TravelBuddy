@@ -27,11 +27,11 @@ export function* signIn(): any {
         continue;
       } 
       
-      // Start match status service
-      const { matchStatusService } = sharedAppService;
-      matchStatusService.tearDown();
-      matchStatusService.username = name;
-      matchStatusService.setUp();
+      // Start user service
+      const { userService } = sharedAppService;
+      userService.tearDown();
+      userService.username = name;
+      userService.setUp();
       
     } catch (err) {
       console.log('error');
@@ -53,11 +53,11 @@ export function* findMatch(): any {
         continue;
       } 
       
-      // Start match status service
-      const { matchStatusService } = sharedAppService;
-      matchStatusService.tearDown();
-      matchStatusService.username = name;
-      matchStatusService.setUp();
+      // // Start match status service
+      // const { matchStatusService } = sharedAppService;
+      // matchStatusService.tearDown();
+      // matchStatusService.username = name;
+      // matchStatusService.setUp();
       
     } catch (err) {
       console.log('error');

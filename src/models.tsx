@@ -4,9 +4,10 @@ export interface App {
   username: string;
 }
 
-export interface MatchStatus {
-  username: string;
-  isMatched: boolean;
+export interface User {
+  username: string,
+  pendingId?: string,
+  connectionId?: string,
 }
 
 export interface ReduxState {

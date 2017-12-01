@@ -24,8 +24,8 @@ const app = (state: models.App = defaultAppState(), action: actions.Action): mod
     //   break;
     case ActionType.UpdateUsername:
       {
-        const { name } = action;
-        newState.username = name;
+        const { username } = action;
+        newState.username = username;
       }
       break;
   }

@@ -11,14 +11,14 @@ import * as models from '../models';
 import * as actions from '../actions';
 const { ActionType } = actions;
 import {
-  MatchStatusService,
-  MatchStatusServiceDelegate,
-} from './match-status-service';
+  UserService,
+  UserServiceDelegate,
+} from './user-service';
 
-export interface AppService extends MatchStatusServiceDelegate {
+export interface AppService extends UserServiceDelegate {
   firebaseApp: Firebase.app.App;
   reduxStore: Store<models.ReduxState>;
-  matchStatusService: MatchStatusService;
+  userService: UserService;
 }
 
 export function createAppService(): AppService {
@@ -29,7 +29,7 @@ export function createAppService(): AppService {
   ) as Store<models.ReduxState>;
 
   // Initialize services
-  const matchStatusService = new MatchStatusService();
+  const userService = new UserService();
 
   // Initialize Firebase
   const firebaseApp: Firebase.app.App = Firebase.initializeApp({
@@ -41,34 +41,33 @@ export function createAppService(): AppService {
     messagingSenderId: "682121885147"
   });
 
-  const updateMatchStatus = createUpdateMatchStatus({reduxStore});
+  const updateUser = createUpdateUser({reduxStore});
 
   const service: AppService = {
     firebaseApp,
     reduxStore,
-    matchStatusService,
-    updateMatchStatus,
+    userService,
+    updateUser,
   };
   
   // Configure services
-  matchStatusService.configure({delegate: service})
+  userService.configure({delegate: service})
 
   sagaMiddleware.run(rootSaga);
 
   return service;
 }
 
-function createUpdateMatchStatus(params: {reduxStore: models.Store}) {
+function createUpdateUser(params: {reduxStore: models.Store}) {
   const { reduxStore } = params;
-  return function updateMatchStatus(params: {matchStatus: models.MatchStatus}) {
-    const { matchStatus } = params;
+  return function updateUser(params: {user: models.User}) {
+    const { user } = params;
     // Do something with user
    if (!reduxStore.getState().app.username) {
      reduxStore.dispatch({
        type: ActionType.UpdateUsername,
-       name: matchStatus.username,
+       username: user.username,
      });
    }
-    console.log("Did we get match status?", matchStatus);
   }
 }
