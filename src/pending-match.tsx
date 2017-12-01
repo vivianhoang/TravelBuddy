@@ -51,6 +51,9 @@ class PendingMatch extends React.Component<Props, State> {
     return (
       <View 
         style={styles.container}>
+        <Text>
+          { 'PENDING MATCH' }
+        </Text>
         { resetMatchButton }
       </View>
     );

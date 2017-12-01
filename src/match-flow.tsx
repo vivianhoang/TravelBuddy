@@ -52,7 +52,11 @@ class MatchFlow extends React.Component<Props, State> {
     if (connectionId) {
       // return connection page
       return (
-        <Matched />
+        <Matched 
+          resetMatch={() => {
+            resetMatch({username});
+          }}
+        />
       )
     }
 

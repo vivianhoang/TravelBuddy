@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 // import { connect } from 'react-redux';
 // import * as models from './models';
 // import { Dispatcher } from './actions';
@@ -14,6 +14,7 @@ interface DispatchToProps {
 }
 
 interface OwnProps {
+  resetMatch: () => void,
 }
 
 interface State {
@@ -27,15 +28,33 @@ class Matched extends React.Component<Props, State> {
     super(props);
   }
 
+  renderResetMatchButton(): JSX.Element {
+    const { resetMatch } = this.props;
+
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          resetMatch();
+        }}
+        style={styles.button}>
+        <Text
+          style={styles.buttonText}>
+          {'Reset Match'}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
+    const resetMatchButton = this.renderResetMatchButton();
 
     return (
       <View 
         style={styles.container}>
-        <Text
-          style={styles.buttonText}>
-          {'Matched!'}
+        <Text>
+          { 'YOU GOT A MATCH!' }
         </Text>
+        { resetMatchButton }
       </View>
     );
   }
@@ -51,9 +70,6 @@ const styles = StyleSheet.create({
     height: 44,
     width: 200,
     borderBottomWidth: 1,
-  },
-  keyboardSpacer: {
-    height: 300,
   },
   button: {
     height: 50,
