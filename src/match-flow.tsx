@@ -2,12 +2,13 @@
 import * as React from 'react';
 // import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 import * as models from './models';
 import { Dispatcher, ActionType } from './actions';
 import CreateMatch from './create-match';
 
 interface StateToProps {
-  username: string,
+  user: models.User | undefined,
 }
 
 interface DispatchToProps {
@@ -29,7 +30,18 @@ class MatchFlow extends React.Component<Props, State> {
   }
 
   render() {
-    const { findMatch, username } = this.props;
+    const { findMatch, user } = this.props;
+    const username = _.get(user, ['username'], '');
+    const pendingId = _.get(user, ['pendingId'], '');
+    const connectionId = _.get(user, ['connectionId'], '');
+
+    if (pendingId) {
+      // return pending match page
+    }
+
+    if (connectionId) {
+      // return connection page
+    }
 
     return (
       <CreateMatch 
@@ -43,10 +55,10 @@ class MatchFlow extends React.Component<Props, State> {
 
 const mapStateToProps = (state: models.ReduxState, ownProps: OwnProps
 ): StateToProps => {
-  const username = state.app.username;
+  const user = state.app.user;
   
   return {
-    username,
+    user,
   }
 };
 

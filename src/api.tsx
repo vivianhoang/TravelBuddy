@@ -47,3 +47,11 @@ export function findMatch(params: {name: string, city: models.City}): Promise<{}
   };
   return apiCall({endPoint: 'findMatch', request}) as Promise<{}>;
 }
+
+export function resetMatch(params: {username: string}): Promise<{}> {
+  const { username } = params;
+  const request = {
+    username,
+  };
+  return apiCall({endPoint: 'resetMatch', request}) as Promise<{}>;
+}

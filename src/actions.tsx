@@ -3,7 +3,8 @@ import * as models from './models';
 export enum ActionType {
   FindMatch = 'FindMatch',
   SignIn = 'SignIn',
-  UpdateUsername = 'UpdateUsername'
+  UpdateUser = 'UpdateUser',
+  ResetMatch = 'ResetMatch',
 }
 
 export interface FindMatch {
@@ -17,14 +18,20 @@ export interface SignIn {
   name: string,
 }
 
-export interface UpdateUsername {
-  type: ActionType.UpdateUsername,
+export interface UpdateUser {
+  type: ActionType.UpdateUser,
+  user: models.User,
+}
+
+export interface ResetMatch {
+  type: ActionType.ResetMatch,
   username: string,
 }
 
 export type Action =
   | FindMatch
   | SignIn
-  | UpdateUsername;
+  | UpdateUser
+  | ResetMatch;
 
 export type Dispatcher = (action: Action) => void;

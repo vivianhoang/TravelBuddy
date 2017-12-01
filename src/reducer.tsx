@@ -6,7 +6,7 @@ const { ActionType } = actions;
 
 const defaultAppState = (): models.App => {
   const state: models.App = {
-    username: "",
+    user: undefined,
   };
   return state;
 };
@@ -22,10 +22,10 @@ const app = (state: models.App = defaultAppState(), action: actions.Action): mod
     // case ActionType.CreateOffer:
     //   newState.isMatchOpen = !newState.isMatchOpen;
     //   break;
-    case ActionType.UpdateUsername:
+    case ActionType.UpdateUser:
       {
-        const { username } = action;
-        newState.username = username;
+        const { user } = action;
+        newState.user = user;
       }
       break;
   }

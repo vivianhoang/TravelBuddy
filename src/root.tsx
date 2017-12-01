@@ -14,7 +14,7 @@ interface OwnProps {
 }
 
 interface StateToProps {
-  username: string
+  user: models.User | undefined
 }
 
 interface DispatchToProps {
@@ -26,9 +26,9 @@ type Props = OwnProps & StateToProps & DispatchToProps;
 class Root extends React.Component<Props, {}> {
 
   renderContent(): JSX.Element {
-    const { signIn, username } = this.props;
+    const { signIn, user } = this.props;
 
-    if (!username) {
+    if (!user) {
       return (
         <SignIn
           signIn={(name: string) => signIn(name)}
@@ -63,9 +63,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: models.ReduxState, ownProps: OwnProps
 ): StateToProps => {
-  const username = state.app.username
+  const user = state.app.user
   return {
-    username
+    user,
   }
 };
 

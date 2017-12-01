@@ -1,7 +1,7 @@
 import * as actions from './actions';
 
 export interface App {
-  username: string;
+  user: User | undefined;
 }
 
 export interface User {

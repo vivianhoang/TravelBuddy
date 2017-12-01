@@ -62,12 +62,9 @@ function createUpdateUser(params: {reduxStore: models.Store}) {
   const { reduxStore } = params;
   return function updateUser(params: {user: models.User}) {
     const { user } = params;
-    // Do something with user
-   if (!reduxStore.getState().app.username) {
-     reduxStore.dispatch({
-       type: ActionType.UpdateUsername,
-       username: user.username,
-     });
-   }
+    reduxStore.dispatch({
+      type: ActionType.UpdateUser,
+      user,
+    });
   }
 }

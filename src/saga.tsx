@@ -46,19 +46,29 @@ export function* findMatch(): any {
       const response = yield call(() => {
         return api.findMatch({ name, city });
       });
-      console.log("RESPONSE", response);
-      
       if (!response || !response.ok) {
         console.log("Error response.");
         continue;
       } 
-      
-      // // Start match status service
-      // const { matchStatusService } = sharedAppService;
-      // matchStatusService.tearDown();
-      // matchStatusService.username = name;
-      // matchStatusService.setUp();
-      
+      // Handle success? 
+    } catch (err) {
+      console.log('error');
+    }
+  }
+}
+
+export function *resetMatch(): any {
+  while (true) {
+    const { username }: actions.ResetMatch = yield take(ActionType.ResetMatch);
+    try {
+      const response = yield call(() => {
+        return api.resetMatch({ username });
+      });
+      if (!response || !response.ok) {
+        console.log("Error response.");
+        continue;
+      } 
+      // Handle success? 
     } catch (err) {
       console.log('error');
     }
@@ -68,7 +78,8 @@ export function* findMatch(): any {
 export function* rootSaga() {
   yield all([
     fork(initialize),
-    fork(findMatch),
     fork(signIn),
+    fork(findMatch),
+    fork(resetMatch),
   ]);
 }
