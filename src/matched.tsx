@@ -1,6 +1,17 @@
 
 import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { connect } from 'react-redux';
+import * as models from './models';
+import { Dispatcher } from './actions';
+
+interface StateToProps {
+
+}
+
+interface DispatchToProps {
+
+}
 
 interface OwnProps {
 }
@@ -8,9 +19,9 @@ interface OwnProps {
 interface State {
 }
 
-type Props = OwnProps;
+type Props = OwnProps & StateToProps & DispatchToProps;
 
-export default class Welcome extends React.Component<Props, State> {
+class Matched extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -21,6 +32,7 @@ export default class Welcome extends React.Component<Props, State> {
     return (
       <View 
         style={styles.container}>
+        {`Where to?`}
         <TouchableOpacity
           onPress={() => {
           }}
@@ -67,3 +79,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+export default Matched;

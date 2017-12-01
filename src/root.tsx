@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as models from './models';
 import { Dispatcher, ActionType } from './actions';
 import SignIn from './sign-in';
-import Welcome from './welcome';
+import MatchFlow from './match-flow';
 
 interface OwnProps {
 
@@ -37,7 +37,7 @@ class Root extends React.Component<Props, {}> {
     }
 
     return (
-      <Welcome />
+      <MatchFlow />
     )
   }
 

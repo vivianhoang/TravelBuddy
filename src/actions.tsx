@@ -1,12 +1,15 @@
+import * as models from './models';
+
 export enum ActionType {
-  CreateOffer = 'CreateOffer',
+  FindMatch = 'FindMatch',
   SignIn = 'SignIn',
   UpdateUsername = 'UpdateUsername'
 }
 
-export interface CreateOffer {
-  type: ActionType.CreateOffer,
+export interface FindMatch {
+  type: ActionType.FindMatch,
   name: string,
+  city: models.City
 }
 
 export interface SignIn {
@@ -20,8 +23,8 @@ export interface UpdateUsername {
 }
 
 export type Action =
-  | CreateOffer
+  | FindMatch
   | SignIn
   | UpdateUsername;
 
-  export type Dispatcher = (action: Action) => void;
+export type Dispatcher = (action: Action) => void;

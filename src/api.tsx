@@ -1,3 +1,5 @@
+import * as models from './models'
+
 export function apiCall(params: {endPoint: string, request: any}) {
   const { endPoint, request } = params;
   const body = JSON.stringify(request);
@@ -35,4 +37,13 @@ export function signIn(params: {name: string}): Promise<{}> {
     name,
   };
   return apiCall({endPoint: 'signIn', request}) as Promise<{}>;
+}
+
+export function findMatch(params: {name: string, city: models.City}): Promise<{}> {
+  const { name, city } = params;
+  const request = {
+    name,
+    city
+  };
+  return apiCall({endPoint: 'findMatch', request}) as Promise<{}>;
 }

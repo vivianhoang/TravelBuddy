@@ -17,3 +17,5 @@ export interface Store {
   dispatch: actions.Dispatcher;
   getState: () => ReduxState;
 }
+
+export type City = 'SF' | 'NY' | 'LA';
