@@ -1,9 +1,6 @@
 
 import * as React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-// import { connect } from 'react-redux';
-// import * as models from './models';
-// import { Dispatcher } from './actions';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 
 interface StateToProps {
 
@@ -39,7 +36,7 @@ class PendingMatch extends React.Component<Props, State> {
         style={styles.button}>
         <Text
           style={styles.buttonText}>
-          {'Reset Match'}
+          {'Go Back'}
         </Text>
       </TouchableOpacity>
     )
@@ -51,8 +48,24 @@ class PendingMatch extends React.Component<Props, State> {
     return (
       <View 
         style={styles.container}>
-        <Text>
-          { 'PENDING MATCH' }
+        <View>
+          <Text
+            style={styles.title}>
+            {'We could not find a match for you.'}
+          </Text>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={require('./static/SadFace.png')}
+            />
+          </View>
+        </View>
+        <View 
+          style={styles.keyboardSpacer}
+        />
+        <Text
+          style={styles.message}>
+          {'Wait for a match, or update your location.'}
         </Text>
         { resetMatchButton }
       </View>
@@ -65,6 +78,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 300
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    justifyContent: 'center',
+    fontSize: 30,
+    fontFamily: 'Courier',
+    textAlign: 'center',
+  },
+  message: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  image: {
+    height: 50,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 75
   },
   button: {
     height: 50,
@@ -73,11 +108,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 35
   },
   buttonText: {
     color: 'white',
     backgroundColor: 'transparent',
     fontWeight: '600',
+  },
+  keyboardSpacer: {
+    height: 75,
   },
 });
 

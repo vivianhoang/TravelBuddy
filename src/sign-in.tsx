@@ -24,10 +24,18 @@ export default class SignIn extends React.Component<Props, State> {
   render() {
     const { name } = this.state;
     const { signIn } = this.props
+    const buttonColor = !name ? "#d3e2dd": "#3eb991"
 
     return (
       <View 
         style={styles.container}>
+        <View>
+          <Text 
+            style={styles.title}
+            >
+              {'Travel Buddy'}
+          </Text>
+        </View>
         <TextInput
           style={styles.nameInput}
           value={name}
@@ -43,7 +51,9 @@ export default class SignIn extends React.Component<Props, State> {
           onPress={() => {
             signIn(name);
           }}
-          style={styles.button}>
+          style={[styles.button, {
+            backgroundColor: buttonColor
+          }]}>
           <Text
             style={styles.buttonText}>
             {'Sign In'}
@@ -63,10 +73,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  title: {
+    fontWeight: '800',
+    fontFamily: 'Courier',
+    fontSize: 30
+  },
   nameInput: {
     height: 44,
     width: 200,
     borderBottomWidth: 1,
+    marginTop: 75
   },
   keyboardSpacer: {
     height: 300,
@@ -75,10 +91,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     borderRadius: 25,
-    backgroundColor: '#3eb991',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: 75,
   },
   buttonText: {
     color: 'white',

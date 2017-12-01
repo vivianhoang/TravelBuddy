@@ -36,4 +36,4 @@ export interface Store {
   getState: () => ReduxState;
 }
 
-export type City = 'SF' | 'NY' | 'LA';
+export type City = 'Chicago'| 'Los Angeles' | 'New York City' | 'San Francisco' | 'Seattle' | '';

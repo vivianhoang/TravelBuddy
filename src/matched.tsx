@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import * as models from './models';
 
 interface StateToProps {
@@ -56,9 +56,16 @@ class Matched extends React.Component<Props, State> {
     return (
       <View 
         style={styles.container}>
-        <Text>
-          { `You matched with ${otherUsername} at ${connection.city}` }
-        </Text>
+        <Text
+          style={styles.title}>
+            { `You matched with ${otherUsername} at ${connection.city}. Hooray!!` }
+        </Text>          
+        <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={require('./static/HappyFace.png')}
+            />
+        </View>
         { resetMatchButton }
       </View>
     );
@@ -70,6 +77,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 350
+  },
+  title: {
+    justifyContent: 'center',
+    fontSize: 30,
+    fontFamily: 'Courier',
+    textAlign: 'center',
   },
   nameInput: {
     height: 44,
@@ -89,6 +103,17 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'transparent',
     fontWeight: '600',
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    height: 50,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 75
   },
 });
 

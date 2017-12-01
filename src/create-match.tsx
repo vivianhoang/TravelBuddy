@@ -30,10 +30,10 @@ class CreateMatch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedCity: 'SF'
+      selectedCity: ""
     }
     
-    this.cities = ['SF', 'LA', 'NY'];
+    this.cities = ['Chicago', 'Los Angeles' , 'New York City', 'San Francisco', 'Seattle'];
   }
 
   renderLocationOptions(): JSX.Element {
@@ -44,7 +44,7 @@ class CreateMatch extends React.Component<Props, State> {
         {
           this.cities.map((city: models.City, index: number) => {
             const isSelectedCity = selectedCity === city;
-            const optionColor = isSelectedCity ? '#67f686' : 'black';
+            const optionColor = isSelectedCity ? '#f46542' : 'black';
 
             return (
               <TouchableOpacity 
@@ -75,15 +75,19 @@ class CreateMatch extends React.Component<Props, State> {
     const { selectedCity } = this.state;
     const { findMatch } = this.props;
 
+    const buttonColor = selectedCity == "" ? '#d3cfcf' : 'red';
+
     return (
       <TouchableOpacity
         onPress={() => {
           findMatch(selectedCity);
         }}
-        style={styles.button}>
+        style={[styles.button, {
+          backgroundColor: buttonColor
+        }]}>
         <Text
           style={styles.buttonText}>
-          {'Create Match'}
+          {'Search For A Match'}
         </Text>
       </TouchableOpacity>
     )
@@ -96,14 +100,12 @@ class CreateMatch extends React.Component<Props, State> {
     return (
       <View 
         style={styles.container}>
-        <Text>
-          {`Where to?`}
+        <Text 
+          style={styles.title}>
+            {`Where to?`}
         </Text>
         { locationOptions }
         { findMatchButton }
-        {/* <View 
-          style={styles.keyboardSpacer}
-        /> */}
       </View>
     );
   }
@@ -115,6 +117,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  title: {
+    fontSize: 30,
+    fontFamily: 'Courier',
+    fontWeight: '300'
+  },
   nameInput: {
     height: 44,
     width: 200,
@@ -124,7 +131,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     borderRadius: 25,
-    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -135,15 +141,15 @@ const styles = StyleSheet.create({
   },
   optionContainer: {
     marginVertical: 50,
-    flexDirection: 'row'
   },
   optionButton: {
-    height: 70,
-    width: 50,
+    height: 50,
+    width: 250,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    marginHorizontal: 15
+    marginHorizontal: 15,
+    marginTop: 5
   },
   optionText: {
     fontWeight: '600',
