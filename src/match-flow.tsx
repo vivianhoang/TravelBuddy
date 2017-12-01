@@ -1,11 +1,13 @@
 
 import * as React from 'react';
-// import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+// import { View } from 'react-native';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import * as models from './models';
 import { Dispatcher, ActionType } from './actions';
 import CreateMatch from './create-match';
+import PendingMatch from './pending-match';
+import Matched from './matched';
 
 interface StateToProps {
   user: models.User | undefined,
@@ -13,6 +15,7 @@ interface StateToProps {
 
 interface DispatchToProps {
   findMatch: (params: {name: string, city: models.City}) => void,
+  resetMatch: (params: {username: string}) => void,
 }
 
 interface OwnProps {
@@ -30,17 +33,27 @@ class MatchFlow extends React.Component<Props, State> {
   }
 
   render() {
-    const { findMatch, user } = this.props;
+    const { findMatch, resetMatch, user } = this.props;
     const username = _.get(user, ['username'], '');
     const pendingId = _.get(user, ['pendingId'], '');
     const connectionId = _.get(user, ['connectionId'], '');
 
     if (pendingId) {
       // return pending match page
+      return (
+        <PendingMatch 
+          resetMatch={() => {
+            resetMatch({username});
+          }}
+        />
+      )
     }
 
     if (connectionId) {
       // return connection page
+      return (
+        <Matched />
+      )
     }
 
     return (
@@ -66,7 +79,10 @@ const mapDispatchToProps = (dispatch: Dispatcher): DispatchToProps => {
   return {
     findMatch: (params: {name: string, city: models.City}) => {
       dispatch({type: ActionType.FindMatch, name: params.name, city: params.city})
-    }
+    },
+    resetMatch: (params: {username: string}) => {
+      dispatch({type: ActionType.ResetMatch, username: params.username})
+    },
   }
 };
 

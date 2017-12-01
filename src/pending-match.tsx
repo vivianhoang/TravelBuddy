@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 // import { connect } from 'react-redux';
 // import * as models from './models';
 // import { Dispatcher } from './actions';
@@ -14,6 +14,7 @@ interface DispatchToProps {
 }
 
 interface OwnProps {
+  resetMatch: () => void,
 }
 
 interface State {
@@ -21,21 +22,36 @@ interface State {
 
 type Props = OwnProps & StateToProps & DispatchToProps;
 
-class Matched extends React.Component<Props, State> {
+class PendingMatch extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
   }
 
+  renderResetMatchButton(): JSX.Element {
+    const { resetMatch } = this.props;
+
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          resetMatch();
+        }}
+        style={styles.button}>
+        <Text
+          style={styles.buttonText}>
+          {'Reset Match'}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
+    const resetMatchButton = this.renderResetMatchButton();
 
     return (
       <View 
         style={styles.container}>
-        <Text
-          style={styles.buttonText}>
-          {'Matched!'}
-        </Text>
+        { resetMatchButton }
       </View>
     );
   }
@@ -47,14 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  nameInput: {
-    height: 44,
-    width: 200,
-    borderBottomWidth: 1,
-  },
-  keyboardSpacer: {
-    height: 300,
-  },
   button: {
     height: 50,
     width: 200,
@@ -62,7 +70,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
   },
   buttonText: {
     color: 'white',
@@ -71,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Matched;
+export default PendingMatch;
