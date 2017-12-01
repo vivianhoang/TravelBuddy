@@ -7,6 +7,7 @@ const { ActionType } = actions;
 const defaultAppState = (): models.App => {
   const state: models.App = {
     user: undefined,
+    connections: {}
   };
   return state;
 };
@@ -26,6 +27,12 @@ const app = (state: models.App = defaultAppState(), action: actions.Action): mod
       {
         const { user } = action;
         newState.user = user;
+      }
+      break;
+    case ActionType.SetConnection:
+      {
+        const { connection } = action;
+        newState.connections[connection.connectionId] = connection;
       }
       break;
   }

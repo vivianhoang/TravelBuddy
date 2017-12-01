@@ -49,9 +49,9 @@ export default class SignIn extends React.Component<Props, State> {
             {'Sign In'}
           </Text>
         </TouchableOpacity>
-        {/* <View 
+        <View 
           style={styles.keyboardSpacer}
-        /> */}
+        />
       </View>
     );
   }

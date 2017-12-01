@@ -5,6 +5,7 @@ export enum ActionType {
   SignIn = 'SignIn',
   UpdateUser = 'UpdateUser',
   ResetMatch = 'ResetMatch',
+  SetConnection = 'SetConnection'
 }
 
 export interface FindMatch {
@@ -28,10 +29,16 @@ export interface ResetMatch {
   username: string,
 }
 
+export interface SetConnection {
+  type: ActionType.SetConnection,
+  connection: models.Connection
+}
+
 export type Action =
   | FindMatch
   | SignIn
   | UpdateUser
-  | ResetMatch;
+  | ResetMatch
+  | SetConnection;
 
 export type Dispatcher = (action: Action) => void;

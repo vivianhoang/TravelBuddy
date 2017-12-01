@@ -1,9 +1,7 @@
 
 import * as React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-// import { connect } from 'react-redux';
-// import * as models from './models';
-// import { Dispatcher } from './actions';
+import * as models from './models';
 
 interface StateToProps {
 
@@ -15,6 +13,8 @@ interface DispatchToProps {
 
 interface OwnProps {
   resetMatch: () => void,
+  connection: models.Connection,
+  username: string
 }
 
 interface State {
@@ -47,12 +47,17 @@ class Matched extends React.Component<Props, State> {
 
   render() {
     const resetMatchButton = this.renderResetMatchButton();
+    const { connection, username } = this.props;
+
+    const otherUsername = Object.keys(connection.members).filter((name: string) => { 
+      return name !== username;
+    })[0];
 
     return (
       <View 
         style={styles.container}>
         <Text>
-          { 'YOU GOT A MATCH!' }
+          { `You matched with ${otherUsername} at ${connection.city}` }
         </Text>
         { resetMatchButton }
       </View>

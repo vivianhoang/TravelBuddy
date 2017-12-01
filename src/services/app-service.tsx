@@ -42,12 +42,14 @@ export function createAppService(): AppService {
   });
 
   const updateUser = createUpdateUser({reduxStore});
+  const setConnection = createSetConnection({reduxStore});
 
   const service: AppService = {
     firebaseApp,
     reduxStore,
     userService,
     updateUser,
+    setConnection
   };
   
   // Configure services
@@ -66,5 +68,17 @@ function createUpdateUser(params: {reduxStore: models.Store}) {
       type: ActionType.UpdateUser,
       user,
     });
+  }
+}
+
+function createSetConnection(params: {reduxStore: models.Store}) {
+  const { reduxStore } = params;
+  // params need to match what was called in the delegate
+  return function setConnection(params: {connection: models.Connection}) {
+    const { connection } = params;
+    reduxStore.dispatch({
+      type: ActionType.SetConnection,
+      connection
+    })
   }
 }

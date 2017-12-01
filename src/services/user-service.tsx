@@ -3,6 +3,7 @@ import * as models from '../models';
 
 export interface UserServiceDelegate {
   updateUser: (params: {user: models.User}) => void,
+  setConnection: (params: {connection: models.Connection}) => void,
   firebaseApp: Firebase.app.App,
 }
 
@@ -34,13 +35,29 @@ export class UserService {
     const delegate = this.delegate;
     const username = this.username;
     const db = delegate.firebaseApp.database();
+
+    // Declaring the callback for the subscription
     const eventTrigger = (snapshot: Firebase.database.DataSnapshot) => {
       const user: models.User = snapshot.val();
-      // Do something with user
-      delegate.updateUser({user});
+
+      if (user.connectionId) {
+        // Grab connection info
+        const fbConnectionPath = `connections/${user.connectionId}`;
+        db.ref(fbConnectionPath).once('value', (snapshot: Firebase.database.DataSnapshot) => {
+          const connection: models.Connection = snapshot.val();
+          delegate.setConnection({connection});
+
+          // Do something with user
+          delegate.updateUser({user});
+        });
+      } else {
+        // Do something with user. This is repeated because delegate.updateUser is being called too quickly when there is a connectionId
+        delegate.updateUser({user});
+      }
     };
     if (!this.unsubscribeFromUser) {
       const fbUserPath = `users/${username}`;
+      // creates the initial subscription, which only occurs once as long as unsubscripedFromusers is not defined
       db.ref(fbUserPath).on('value', eventTrigger);
       this.unsubscribeFromUser = () => {
         db.ref(fbUserPath).off('value', eventTrigger);
@@ -52,6 +69,7 @@ export class UserService {
     this.username = undefined;
     if (this.unsubscribeFromUser) {
       this.unsubscribeFromUser();
+      this.unsubscribeFromUser = undefined;
     }
   }
 }

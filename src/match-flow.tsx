@@ -11,6 +11,7 @@ import Matched from './matched';
 
 interface StateToProps {
   user: models.User | undefined,
+  connections: models.Connections
 }
 
 interface DispatchToProps {
@@ -33,7 +34,7 @@ class MatchFlow extends React.Component<Props, State> {
   }
 
   render() {
-    const { findMatch, resetMatch, user } = this.props;
+    const { findMatch, resetMatch, user, connections } = this.props;
     const username = _.get(user, ['username'], '');
     const pendingId = _.get(user, ['pendingId'], '');
     const connectionId = _.get(user, ['connectionId'], '');
@@ -50,9 +51,12 @@ class MatchFlow extends React.Component<Props, State> {
     }
 
     if (connectionId) {
+      const connection = connections[connectionId];
       // return connection page
       return (
         <Matched 
+          connection={connection}
+          username={username}
           resetMatch={() => {
             resetMatch({username});
           }}
@@ -73,9 +77,11 @@ class MatchFlow extends React.Component<Props, State> {
 const mapStateToProps = (state: models.ReduxState, ownProps: OwnProps
 ): StateToProps => {
   const user = state.app.user;
-  
+  const connections = state.app.connections;
+
   return {
     user,
+    connections,
   }
 };
 
