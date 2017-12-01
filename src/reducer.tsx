@@ -7,7 +7,8 @@ const { ActionType } = actions;
 const defaultAppState = (): models.App => {
   const state: models.App = {
     user: undefined,
-    connections: {}
+    connections: {},
+    isLoading: false,
   };
   return state;
 };
@@ -33,6 +34,16 @@ const app = (state: models.App = defaultAppState(), action: actions.Action): mod
       {
         const { connection } = action;
         newState.connections[connection.connectionId] = connection;
+      }
+      break;
+    case ActionType.StartLoading:
+      {
+        newState.isLoading = true;
+      }
+      break;
+    case ActionType.FinishLoading:
+      {
+        newState.isLoading = false;
       }
       break;
   }

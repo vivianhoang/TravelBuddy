@@ -3,6 +3,7 @@ import * as actions from './actions';
 export interface App {
   user: User | undefined;
   connections: Connections;
+  isLoading: boolean;
 }
 
 export interface User {
